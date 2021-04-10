@@ -4,7 +4,6 @@ import dotenv from 'dotenv'
 dotenv.config()
 const app = express()
 
-//htttp://69.140.76.213:8080/
 const server = app.listen(8080, () => {
   console.log("server is running")
 })
