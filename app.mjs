@@ -4,25 +4,29 @@ import dotenv from 'dotenv'
 dotenv.config()
 const app = express()
 
-const server = app.listen(8080, () => {
-  console.log("server is running")
-})
-
 const courier = CourierClient({
   authorizationToken: dotenv.COURIER_AUTH_TOKEN
 }); // get from the Courier UI
 
+app.use(express.json());
+app.use(express.urlencoded());
 
-app.get('/sendText', () => {
-  courier.send({
-    eventId: "Danger", // get from the Courier UI
-    recipientId: "Armando", // usually your system's User ID
-    profile: {
-      phone_number: dotenv.PHONE_NUMBER,
-      email: dotenv.EMAIL,
-    },
-    data: {
-    } // optional variables for merging into templates
-  })
-  console.log("")
-});
+app.listen(3000, () => {
+  console.log("server is running")
+})
+
+app.get('/sendText', async (req,res) => {
+  console.log(req.body)
+   const {message} = await courier.send({
+     eventId: req.body.eventId, // get from the Courier UI
+     recipientId: req.body.recipientId, // usually your system's User ID
+     profile: {
+       phone_number: req.body.profile.phone_number,
+       email: req.body.profile.email
+     },
+     data: {
+       receiverName: req.body.data.receiverName
+     }
+   })
+   res.send(message)
+})
