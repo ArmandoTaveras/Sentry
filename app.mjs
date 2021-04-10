@@ -25,7 +25,8 @@ app.get('/sendText', async (req,res) => {
        email: req.body.profile.email
      },
      data: {
-       receiverName: req.body.data.receiverName
+       receiverName: req.body.data.receiverName,
+       senderName : req.body.data.senderName
      }
    })
    res.send(message)
