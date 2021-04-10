@@ -19,8 +19,8 @@ app.get('/sendText', () => {
     eventId: "Danger", // get from the Courier UI
     recipientId: "Armando", // usually your system's User ID
     profile: {
-      phone_number: "240-370-6534",
-      email: "agprxme@gmail.com",
+      phone_number: dotenv.PHONE_NUMBER,
+      email: dotenv.EMAIL,
     },
     data: {
     } // optional variables for merging into templates
